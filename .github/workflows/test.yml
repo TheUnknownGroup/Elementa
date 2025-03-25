@@ -31,7 +31,7 @@ jobs:
         with:
           java-version: ${{ env.java_ver }}
           distribution: "temurin"
-          java_package: "jre"
+          java-package: "jre"
           architecture: "x64"
 
       - name: make gradle wrapper executable
@@ -65,8 +65,9 @@ jobs:
         with:
           java-version: ${{ env.java_ver }}
           distribution: "temurin"
-          java_package: "jre"
+          java-package: "jre"
           architecture: "x64"
+          check-latest: true
 
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
@@ -88,7 +89,7 @@ jobs:
           cosign verify build/libs/elementa-${{ env.ver }}.exe
 
       - name: upload exe
-        uses: actions/upload-artfact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: exe
           path: build/libs/elementa-${{ env.ver }}.exe
