@@ -1,0 +1,47 @@
+name: Build Elementa v0.0.0
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+env:
+  java_ver: "19"
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip]' }}
+    permissions:
+      contents: write
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: setup jdk
+        uses: actions/setup-jdk@v4
+        with:
+          java-version: ${{ env.java_ver }}
+          distribution: "temurin"
+          java_package: "jre"
+          architecture: "x64"
+
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: build
+        run: ./gradlew build
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: files
+          path: build/out/
+
+      - name: build exe
+        run: ./gradlew createExe

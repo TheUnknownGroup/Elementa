@@ -9,10 +9,13 @@ import xyz.theunknowngroup.window.WindowIcon;
 public class ElementaMain {
     // Icon
     private long window;
-    public final String icon_path = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
-    public void run() {
+    public final String icon() {
+        String i = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
+        return i;
+    }
+    public void run(){
         init();
-        WindowIcon.setWindowIcon(window, icon_path);
+        WindowIcon.setWindowIcon(window, icon());
         loop();
         glfwDestroyWindow(window);
         glfwTerminate();
@@ -21,7 +24,7 @@ public class ElementaMain {
         if (!glfwInit()) {
             throw new IllegalStateException("Failed to initialize GLFW.");
         }
-        window = glfwCreateWindow(950, 530, "Elementa", 0, 0);
+        window = glfwCreateWindow(854, 480, "Elementa", 0, 0);
         if (window == 0) {
             throw new RuntimeException("Failed to create window.");
         }
@@ -31,7 +34,7 @@ public class ElementaMain {
 
     private void loop() {
         while (!glfwWindowShouldClose(window)) {
-//            glClearColor(73.0f/255.0f, 125.0f/255.0f, 120.0f/255.0f, 0.78f);
+            glClearColor(73.0f/255.0f, 125.0f/255.0f, 120.0f/255.0f, 0.78f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             glfwSwapBuffers(window);

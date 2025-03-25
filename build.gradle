@@ -1,5 +1,8 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'edu.sc.seis.launch4j' version '3.0.6'
 }
 
 group = project.group
@@ -9,6 +12,21 @@ def lwjglNatives = project.property("lwjgl_natives")
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainClass = group+".ElementaMain"
+}
+
+launch4j {
+    mainClassName = group+".ElementaMain"
+    outputDir = "out/"
+    xmlFileName = "elementa.xml"
+    outfile = "elementa-0.0.0.exe"
+    downloadUrl = "https://adoptium.net/temurin/releases/?package=jre&version=19&os=any&arch=x64"
+    supportUrl = "https://github.com/TheUnknownGroup/Elementa"
+    copyright = "MIT"
+    jreMinVersion = project.target
 }
 
 dependencies {
@@ -30,6 +48,12 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-stb::${lwjglNatives}"
 }
 
-test {
-    useJUnitPlatform()
+//test {
+//    useJUnitPlatform()
+//}
+
+jar {
+    manifest {
+        attributes 'Main-Class': group+".ElementaMain"
+    }
 }
