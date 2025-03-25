@@ -102,12 +102,12 @@ jobs:
       - name: sign exe
         shell: pwsh
         run: |
-          ./cosign sign --oidc-client-id sigstore build/libs/elementa-0.0.0.exe
+          ./cosign sign-blob build/libs/elementa-0.0.0.exe --output-signature build/libs/elementa-0.0.0.exe.sig
 
       - name: verify
         shell: pwsh
         run: |
-          ./cosign verify build/libs/elementa--0.0.0.exe
+          ./cosign verify-blob --signature build/libs/elementa--0.0.0.exe --certificate build/libs/elementa-0.0.0.exe
 
       - name: upload exe
         uses: actions/upload-artifact@v4
