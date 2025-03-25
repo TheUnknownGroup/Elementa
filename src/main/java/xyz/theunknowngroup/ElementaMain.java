@@ -31,7 +31,6 @@ public class ElementaMain {
         glfwMakeContextCurrent(window);
         createCapabilities();
     }
-
     private void loop() {
         while (!glfwWindowShouldClose(window)) {
             glClearColor(73.0f/255.0f, 125.0f/255.0f, 120.0f/255.0f, 0.78f);
