@@ -20,8 +20,7 @@ application {
 
 launch4j {
     mainClassName = group+".ElementaMain"
-    outputDir = "out/"
-    xmlFileName = "elementa.xml"
+    outputDir = "libs/"
     outfile = "elementa-0.0.0.exe"
     downloadUrl = "https://adoptium.net/temurin/releases/?package=jre&version=19&os=any&arch=x64"
     supportUrl = "https://github.com/TheUnknownGroup/Elementa"

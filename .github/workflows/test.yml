@@ -7,7 +7,9 @@ on:
 
   workflow_dispatch:
 env:
-  java_ver: "19"
+  java_ver: "19.0.2"
+  ver: 0.0.0
+  tag: "v0.0.0-experimental+build.1"
 
 jobs:
   build:
@@ -15,7 +17,7 @@ jobs:
     permissions:
       contents: write
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
@@ -41,7 +43,53 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: files
-          path: build/out/
+          path: build/libs/
 
       - name: build exe
         run: ./gradlew createExe
+
+      - name: cosign install
+        run: |
+          curl -LO https://github.com/sigstore/cosign/releases/latest/download/cosign-windows-amd64.exe
+          mv cosign-windows-amd64.exe cosign.exe
+
+      - name: sign exe
+        run: |
+          cosign sign --oidc-client-id sigstore build/libs/elementa-${{ env.ver }}.exe
+
+      - name: verify
+        run: |
+          cosign verify build/libs/elementa-${{ env.ver }}.exe
+
+      - name: upload exe
+        uses: actions/upload-artfact@v4
+        with:
+          name: exe
+          path: build/libs/elementa-${{ env.ver }}.exe
+
+  release:
+    if: ${{ !contains(github.event.head_commit.message, '[skip]') }}
+
+    permissions:
+      contents: write
+
+    needs: [ build ]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: download files
+        uses: actions/download-artifact@v4
+
+      - name: create release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Elementa V${{ env.ver }}
+          tag_name: ${{ env.tag }}
+          body_path: ${{ github.workspace}}/changelog.md
+          draft: true
+          generate_release_notes: true
+          files: |
+            files/*.jar
+            exe/*.exe
