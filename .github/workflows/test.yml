@@ -12,12 +12,13 @@ env:
   tag: "v0.0.0-experimental+build.1"
 
 jobs:
-  build:
+  build-jar:
     if: ${{ !contains(github.event.head_commit.message, '[skip]') }}
+
     permissions:
       contents: write
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
@@ -44,6 +45,31 @@ jobs:
         with:
           name: files
           path: build/libs/
+
+  build-exe:
+    if: ${{ !contains(github.event.head_commit.message, '[skip]') }}
+
+    permissions:
+      contents: write
+
+    runs-on: windows-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: setup jdk
+        uses: actions/setup-jdk@v4
+        with:
+          java-version: ${{ env.java_ver }}
+          distribution: "temurin"
+          java_package: "jre"
+          architecture: "x64"
+
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
 
       - name: build exe
         run: ./gradlew createExe
@@ -73,7 +99,7 @@ jobs:
     permissions:
       contents: write
 
-    needs: [ build ]
+    needs: [ build-jar, build-exe ]
 
     runs-on: ubuntu-latest
     steps:
