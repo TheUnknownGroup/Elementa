@@ -102,12 +102,14 @@ jobs:
       - name: sign exe
         shell: pwsh
         run: |
-          ./cosign sign-blob build/libs/elementa-0.0.0.exe --output-signature build/libs/elementa-0.0.0.exe.sig
+          ./cosign sign-blob build/libs/elementa-0.0.0.exe --output-signature build/libs/elementa-0.0.0.exe.sig --yes
+        env:
+          COSIGN_EXPERIMENTAL: "true"
 
       - name: verify
         shell: pwsh
         run: |
-          ./cosign verify-blob --signature build/libs/elementa--0.0.0.exe --certificate build/libs/elementa-0.0.0.exe
+          ./cosign verify-blob --signature build/libs/elementa--0.0.0.exe --certificate build/libs/elementa-0.0.0.exe 
 
       - name: upload exe
         uses: actions/upload-artifact@v4
