@@ -92,16 +92,22 @@ jobs:
         run: |
           curl -LO https://github.com/sigstore/cosign/releases/latest/download/cosign-windows-amd64.exe
           mv cosign-windows-amd64.exe cosign.exe
+          chmod +x cosign.exe
+          echo "$(pwd)" >> $GITHUB_PATH
+
+      - name: verify installation
+        run: |
+          ./cosign.exe version
 
       - name: sign exe
         shell: pwsh
         run: |
-          cosign sign --oidc-client-id sigstore build/libs/elementa-0.0.0.exe
+          ./cosign sign --oidc-client-id sigstore build/libs/elementa-0.0.0.exe
 
       - name: verify
         shell: pwsh
         run: |
-          cosign verify build/libs/elementa--0.0.0.exe
+          ./cosign verify build/libs/elementa--0.0.0.exe
 
       - name: upload exe
         uses: actions/upload-artifact@v4
