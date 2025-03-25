@@ -31,7 +31,6 @@ jobs:
         with:
           java-version: ${{ env.java_ver }}
           distribution: "temurin"
-          java-package: "jre"
           architecture: "x64"
 
       - name: make gradle wrapper executable
@@ -61,6 +60,14 @@ jobs:
         uses: gradle/actions/wrapper-validation@v4
 
       - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.java_ver }}
+          distribution: "temurin"
+          architecture: "x64"
+          check-latest: true
+
+      - name: setup jre
         uses: actions/setup-java@v4
         with:
           java-version: ${{ env.java_ver }}
