@@ -92,7 +92,7 @@ jobs:
 
     needs: [ build-exe ]
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -111,7 +111,7 @@ jobs:
 
       - name: pip install
         shell: pwsh
-        run: py -m ensurepip --upgrade
+        run: python -m ensurepip --upgrade
 
       - name: sign sigstore
         uses: sigstore/gh-action-sigstore-python@v3.0.0
@@ -119,7 +119,7 @@ jobs:
           inputs: exe/elementa-0.0.0.exe
           verify: true
           verify-cert-identity: https://github.com/TheUnknownGroup/Elementa/.github/workflows/test@refs/heads/main
-          verify-oidc-issuer: https://oauth2.sigstore.dev/auth
+          verify-oidc-issuer: https://token.actions.githubusercontent.com
           upload-signing-artifacts: true
 
   release:
