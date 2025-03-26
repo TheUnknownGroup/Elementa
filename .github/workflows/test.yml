@@ -120,6 +120,8 @@ jobs:
           inputs: |
             exe/*.exe
           verify: true
+          verify-cert-identity: https://github.com/TheUnknownGroup/Elementa/.github/workflows/test@refs/heads/main
+          verify-oidc-issuer: https://oauth2.sigstore.dev/auth
           upload-signing-artifacts: true
 
   release:
