@@ -100,7 +100,7 @@ jobs:
       - name: verify
         shell: pwsh
         run: |
-          ./cosign verify-blob --signature build/libs/elementa--0.0.0.exe --certificate build/libs/elementa-0.0.0.exe 
+          ./cosign verify-blob --signature build/libs/elementa--0.0.0.exe.sig --certificate build/libs/elementa-0.0.0.exe 
 
       - name: upload exe
         uses: actions/upload-artifact@v4
