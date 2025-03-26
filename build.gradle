@@ -56,3 +56,9 @@ jar {
         attributes 'Main-Class': group+".ElementaMain"
     }
 }
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(19))
+    }
+}

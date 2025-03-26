@@ -32,6 +32,10 @@ jobs:
           java-version: ${{ env.java_ver }}
           distribution: "temurin"
           architecture: "x64"
+          check-latest: true
+
+      - name: java ver
+        run: java -version
 
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
@@ -67,6 +71,9 @@ jobs:
           distribution: "temurin"
           architecture: "x64"
           check-latest: true
+
+      - name: java ver
+        run: java -version
 
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
