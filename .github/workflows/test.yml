@@ -118,7 +118,7 @@ jobs:
         with:
           inputs: exe/elementa-0.0.0.exe
           verify: true
-          verify-cert-identity: owner@thegremlin.xyz
+          verify-cert-identity: https://github.com/TheUnknownGroup/Elementa/.github/workflows/test.yml@refs/heads/main
           verify-oidc-issuer: https://token.actions.githubusercontent.com
           upload-signing-artifacts: true
 
