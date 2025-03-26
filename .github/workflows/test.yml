@@ -146,5 +146,6 @@ jobs:
           draft: true
           generate_release_notes: true
           files: |
-            files/*.jar
-            exe/*.exe
+            signing-artifacts-sign/*.exe
+#            files/*.jar
+#            exe/*.exe
