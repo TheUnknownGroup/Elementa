@@ -99,9 +99,6 @@ jobs:
 
       - name: download exe
         uses: actions/download-artifact@v4
-        with:
-          name: exe
-          path: build/libs/*.exe
 
       - name: py install
         uses: actions/setup-python@v5
@@ -118,8 +115,7 @@ jobs:
       - name: sign sigstore
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
-          inputs: |
-            exe/elementa-0.0.0.exe
+          inputs: elementa-0.0.0.exe
           verify: true
           verify-cert-identity: https://github.com/TheUnknownGroup/Elementa/.github/workflows/test@refs/heads/main
           verify-oidc-issuer: https://oauth2.sigstore.dev/auth
