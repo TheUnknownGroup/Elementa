@@ -20,8 +20,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
@@ -53,10 +52,9 @@ jobs:
 
     needs: [ build-jar ]
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
@@ -78,35 +76,42 @@ jobs:
       - name: build exe
         run: ./gradlew createExe
 
-      - name: cosign install
-        shell: pwsh
-        run: |
-          curl -LO https://github.com/sigstore/cosign/releases/latest/download/cosign-windows-amd64.exe
-          mv cosign-windows-amd64.exe cosign.exe
-          chmod +x cosign.exe
-          echo "$(pwd)" >> $GITHUB_PATH
-
-      - name: verify installation
-        run: |
-          ./cosign.exe version
-
-      - name: sign exe
-        shell: pwsh
-        run: |
-          ./cosign sign-blob build/libs/elementa-0.0.0.exe --output-signature build/libs/elementa-0.0.0.exe.sig --yes
-        env:
-          COSIGN_EXPERIMENTAL: "true"
-
-      - name: verify
-        shell: pwsh
-        run: |
-          ./cosign verify-blob --signature build/libs/elementa--0.0.0.exe.sig --certificate build/libs/elementa-0.0.0.exe 
-
       - name: upload exe
         uses: actions/upload-artifact@v4
         with:
           name: exe
-          path: build/libs/elementa-0.0.0.exe
+          path: build/libs/
+
+  sign:
+    if: ${{ !contains(github.event.head_commit.message, '[skip]') }}
+
+    permissions:
+      contents: write
+
+    needs: [ build-exe ]
+
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persis-credentials: false
+
+      - name: download exe
+        uses: actions/download-artifact@v4
+        with:
+          name: exe
+          path: build/libs/*.exe
+
+      - name: py install
+        run: python -m pip install
+
+      - name: sign sigstore
+        uses: sigstore/gh-action-sigstore-python@v3
+        with:
+          inputs: |
+            exe/*.exe
+          verify: true
+          upload-signing-artifacts: true
 
   release:
     if: ${{ !contains(github.event.head_commit.message, '[skip]') }}
@@ -114,7 +119,7 @@ jobs:
     permissions:
       contents: write
 
-    needs: [ build-jar, build-exe ]
+    needs: [ build-jar, sign ]
 
     runs-on: ubuntu-latest
     steps:
