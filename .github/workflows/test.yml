@@ -100,7 +100,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: exe
-          path: build/libs/*.exe
 
       - name: py install
         run: python -m pip install
