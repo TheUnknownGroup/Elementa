@@ -112,7 +112,7 @@ jobs:
 
       - name: pip install
         shell: pwsh
-        run: python -m pip install
+        run: py -m ensurepip --upgrade
 
       - name: sign sigstore
         uses: sigstore/gh-action-sigstore-python@v3.0.0
