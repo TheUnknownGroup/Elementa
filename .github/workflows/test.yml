@@ -116,7 +116,7 @@ jobs:
       - name: sign sigstore
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
-          inputs: exe/**/*
+          inputs: exe/elementa-0.0.0.exe
           verify: true
           verify-cert-identity: owner@thegremlin.xyz
           verify-oidc-issuer: https://github.com/login/oauth
