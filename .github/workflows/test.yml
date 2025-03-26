@@ -69,15 +69,6 @@ jobs:
           architecture: "x64"
           check-latest: true
 
-#      - name: setup jre
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: ${{ env.java_ver }}
-#          distribution: "temurin"
-#          java-package: "jre"
-#          architecture: "x64"
-#          check-latest: true
-
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
 

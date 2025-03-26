@@ -14,3 +14,5 @@ This app includes the following:
 - A title
 
 That is all, thank you for downloading.
+## Required Information
+Even though this is prompted when you download and start the .exe file, please download a JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=19&os=any&arch=x64) as this is needed to use it. 
