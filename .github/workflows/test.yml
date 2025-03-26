@@ -101,6 +101,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: exe
+          path: exe/*
 
       - name: py install
         uses: actions/setup-python@v5
