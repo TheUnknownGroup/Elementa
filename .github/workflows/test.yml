@@ -10,6 +10,7 @@ env:
   java_ver: "19.0.2"
   ver: 0.0.0
   tag: "v0.0.0-experimental+build.1"
+  py_ver: "3.13.2"
 
 jobs:
   build-jar:
@@ -94,7 +95,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persis-credentials: false
+          persist-credentials: false
 
       - name: download exe
         uses: actions/download-artifact@v4
@@ -102,6 +103,11 @@ jobs:
           name: exe
 
       - name: py install
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.py_ver }}
+
+      - name: pip install
         run: python -m pip install
 
       - name: sign sigstore
