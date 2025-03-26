@@ -12,7 +12,7 @@ public class ElementaMain {
     private String i = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
     public void run(){
         init();
-//        WindowIcon.setWindowIcon(window, i);
+        WindowIcon.setWindowIcon(window, i);
         loop();
         glfwDestroyWindow(window);
         glfwTerminate();
