@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 env:
   java_ver: "19.0.2"
-  ver: 0.0.0
-  tag: "v0.0.0-experimental+build.1"
+  ver: 0.0.0-experimental
+  tag: "v0.0.0-experimental+build.2"
   py_ver: "3.13.2"
 
 jobs:
@@ -116,7 +116,7 @@ jobs:
       - name: sign sigstore
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
-          inputs: exe/elementa-0.0.0.exe
+          inputs: exe/*.exe
           verify: true
           verify-cert-identity: https://github.com/TheUnknownGroup/Elementa/.github/workflows/test.yml@refs/heads/main
           verify-oidc-issuer: https://token.actions.githubusercontent.com
@@ -147,5 +147,3 @@ jobs:
           generate_release_notes: true
           files: |
             signing-artifacts-sign/*.exe
-#            files/*.jar
-#            exe/*.exe

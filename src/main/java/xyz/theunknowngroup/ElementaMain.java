@@ -3,23 +3,46 @@ package xyz.theunknowngroup;
 import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.system.MemoryStack.stackPush;
 
-import xyz.theunknowngroup.window.WindowIcon;
+import org.lwjgl.glfw.GLFWImage;
+import org.lwjgl.stb.STBImage;
+import org.lwjgl.system.MemoryStack;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 public class ElementaMain {
     // Icon
     private long window;
-    public final String icon() {
-        String i = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
-        return i;
-    }
+    private String i = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
     public void run(){
         init();
-        WindowIcon.setWindowIcon(window, icon());
+        setWindowIcon();
         loop();
         glfwDestroyWindow(window);
         glfwTerminate();
     }
+
+    public void setWindowIcon() {
+        try (MemoryStack stack = stackPush()) {
+            IntBuffer width = stack.mallocInt(1);
+            IntBuffer height = stack.mallocInt(1);
+            IntBuffer channels = stack.mallocInt(1);
+
+            ByteBuffer image = STBImage.stbi_load(i, width, height, channels, 4);
+            if (image == null) {
+                throw new RuntimeException("Failed to load icon: " + STBImage.stbi_failure_reason());
+            }
+
+            GLFWImage.Buffer icons = GLFWImage.malloc(1);
+            icons.position(0).width(width.get(0)).height(height.get(0)).pixels(image);
+            glfwSetWindowIcon(window, icons);
+
+            STBImage.stbi_image_free(image);
+        }
+    }
+
     private void init() {
         if (!glfwInit()) {
             throw new IllegalStateException("Failed to initialize GLFW.");
