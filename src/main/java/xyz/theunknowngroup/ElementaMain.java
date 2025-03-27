@@ -8,9 +8,9 @@ import xyz.theunknowngroup.window.WindowIcon;
 
 public class ElementaMain {
     // Icon
-    private long window;
-    private String i = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
-    public void run(){
+    private static long window;
+    private static String i = "C:\\Users\\kaylo\\repos\\theunknowngroup\\mcdevelopment\\elementa\\build\\resources\\main\\icon.png";
+    public static void run(){
         init();
         WindowIcon.setWindowIcon(window, i);
         loop();
@@ -18,7 +18,7 @@ public class ElementaMain {
         glfwTerminate();
     }
 
-    private void init() {
+    private static void init() {
         if (!glfwInit()) {
             throw new IllegalStateException("Failed to initialize GLFW.");
         }
@@ -29,7 +29,7 @@ public class ElementaMain {
         glfwMakeContextCurrent(window);
         createCapabilities();
     }
-    private void loop() {
+    private static void loop() {
         while (!glfwWindowShouldClose(window)) {
             glClearColor(73.0f/255.0f, 125.0f/255.0f, 120.0f/255.0f, 0.78f);
             glClear(GL_COLOR_BUFFER_BIT);
