@@ -23,7 +23,10 @@ launch4j {
     outputDir = "libs/"
     outfile = "elementa-0.0.0.exe"
     copyright = "MIT"
-    xmlFileName = "elementa.xml"
+    xmlFileName = "${projectDir}/exe/elementa.xml"
+    windowTitle = "Elementa"
+    companyName = "TheUnknownGroup"
+    jreMinVersion = project.target
 }
 
 dependencies {

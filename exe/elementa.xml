@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <errTitle>Need Java? Go to your local coffee shop.</errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>https://adoptium.net/temurin/releases/?package=jre&amp;version=19&amp;os=any&amp;arch=x64</downloadUrl>
+  <supportUrl>https://github.com/TheUnknownGroup/Elementa</supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon></icon>
+  <classPath>
+    <cp>lib/lwjgl-3.3.6.jar</cp>
+    <cp>lib/lwjgl-3.3.6-natives-windows.jar</cp>
+    <cp>lib/lwjgl-assimp-3.3.6.jar</cp>
+    <cp>lib/lwjgl-assimp-3.3.6-natives-windows.jar</cp>
+    <cp>lib/lwjgl-glfw-3.3.6.jar</cp>
+    <cp>lib/lwjgl-glfw-3.3.6-natives-windows.jar</cp>
+    <cp>lib/lwjgl-openal-3.3.6.jar</cp>
+    <cp>lib/lwjgl-openal-3.3.6-natives-windows.jar</cp>
+    <cp>lib/lwjgl-opengl-3.3.6.jar</cp>
+    <cp>lib/lwjgl-opengl-3.3.6-natives-windows.jar</cp>
+    <cp>lib/lwjgl-stb-3.3.6.jar</cp>
+    <cp>lib/lwjgl-stb-3.3.6-natives-windows.jar</cp>
+  </classPath>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+  </jre>
+</launch4jConfig>
