@@ -5,7 +5,7 @@ plugins {
     id 'edu.sc.seis.launch4j' version '3.0.6'
 }
 
-group = project.group
+group = project.property("group")
 version = project.version
 def lwjglVersion = project.property("lwjgl_ver")
 def lwjglNatives = project.property("lwjgl_natives")
@@ -15,17 +15,15 @@ repositories {
 }
 
 application {
-    mainClass = group+".ElementaMain"
+    mainClass = "xyz.theunknowngroup.ElementaMain"
 }
 
 launch4j {
-    mainClassName = group+".ElementaMain"
+    mainClassName = "xyz.theunknowngroup.ElementaMain"
     outputDir = "libs/"
     outfile = "elementa-0.0.0.exe"
-    downloadUrl = "https://adoptium.net/temurin/releases/?package=jre&version=19&os=any&arch=x64"
-    supportUrl = "https://github.com/TheUnknownGroup/Elementa"
     copyright = "MIT"
-    jreMinVersion = project.target
+    xmlFileName = "elementa.xml"
 }
 
 dependencies {
@@ -47,13 +45,13 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-stb::${lwjglNatives}"
 }
 
-//test {
-//    useJUnitPlatform()
-//}
-
 jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it)}
+    }
     manifest {
-        attributes 'Main-Class': group+".ElementaMain"
+        attributes 'Main-Class': 'xyz.theunknowngroup.ElementaMain'
     }
 }
 
