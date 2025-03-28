@@ -9,7 +9,7 @@ on:
 env:
   java_ver: "19.0.2"
   ver: 0.0.0-experimental
-  tag: "v0.0.0-experimental+build.2"
+#  tag: "v0.0.0-experimental+build.1"
   py_ver: "3.13.2"
 
 jobs:
@@ -148,7 +148,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: Elementa V${{ env.ver }}
-          tag_name: ${{ env.tag }}
+#          tag_name: ${{ env.tag }}
           body_path: ${{ github.workspace}}/changelog.md
           draft: true
           generate_release_notes: true
