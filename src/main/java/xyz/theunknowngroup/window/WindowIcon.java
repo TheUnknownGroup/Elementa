@@ -18,9 +18,9 @@ public class WindowIcon {
             IntBuffer channels = stack.mallocInt(1);
 
             ByteBuffer image = stbi_load(path, width, height, channels, 4);
-            if (image == null) {
-                throw new RuntimeException("Failed to load icon: " + stbi_failure_reason());
-            }
+//            if (image == null) {
+//                throw new RuntimeException("Failed to load icon: " + stbi_failure_reason());
+//            }
 
             Buffer icons = calloc(1);
             icons.position(0);
