@@ -19,17 +19,6 @@ public class WindowIcon {
 
             ByteBuffer image = stbi_load(path, width, height, channels, 4);
 
-            if (image == null) {
-                String stbi = stbi_failure_reason();
-                String error;
-                if (stbi != null && !stbi.isEmpty()) {
-                    error = "Failed to load image: " + stbi;
-                } else {
-                    error = "Successfully loaded the image.";
-                }
-                throw new RuntimeException(error);
-            }
-
             Buffer icons = calloc(1);
             icons.position(0);
             icons.get(0).set(width.get(0), height.get(0), image);
