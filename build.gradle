@@ -5,14 +5,21 @@ plugins {
     id 'edu.sc.seis.launch4j' version '3.0.6'
 }
 
-group = project.property("group")
-version = project.version
-def lwjglVersion = project.property("lwjgl_ver")
-def lwjglNatives = project.property("lwjgl_natives")
-
 repositories {
     mavenCentral()
+    gradlePluginPortal()
+    mavenLocal()
+    google()
+    maven { url 'https://s01.oss.sonatype.org' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
 }
+
+group = project.property("group")
+version = project.version
+//def lwjglVersion = project.property("lwjgl_ver")
+//def lwjglNatives = project.property("lwjgl_natives")
 
 application {
     mainClass = "xyz.theunknowngroup.ElementaMain"
@@ -33,19 +40,15 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    implementation platform("org.lwjgl:lwjgl-bom:${lwjglVersion}")
-    implementation "org.lwjgl:lwjgl"
-    implementation "org.lwjgl:lwjgl-assimp"
-    implementation "org.lwjgl:lwjgl-glfw"
-    implementation "org.lwjgl:lwjgl-openal"
-    implementation "org.lwjgl:lwjgl-opengl"
-    implementation "org.lwjgl:lwjgl-stb"
-    runtimeOnly "org.lwjgl:lwjgl::${lwjglNatives}"
-    runtimeOnly "org.lwjgl:lwjgl-assimp::${lwjglNatives}"
-    runtimeOnly "org.lwjgl:lwjgl-glfw::${lwjglNatives}"
-    runtimeOnly "org.lwjgl:lwjgl-openal::${lwjglNatives}"
-    runtimeOnly "org.lwjgl:lwjgl-opengl::${lwjglNatives}"
-    runtimeOnly "org.lwjgl:lwjgl-stb::${lwjglNatives}"
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+
+    if(enableGraalNative == 'true') {
+        implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
+    }
 }
 
 jar {

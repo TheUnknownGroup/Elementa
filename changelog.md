@@ -11,8 +11,9 @@ This app includes the following:
 
 - A dark-blueish hue for the screen
 - An icon
-- A title
+- A window title
+- Text *[see disclaimer](https://github.com/TheUnknownGroup/Elementa/wiki/FontsUsed) <small style="color: #89CFF0">TBI</small>
 
 That is all, thank you for downloading.
 ## Required Information
-Even though this is prompted when you download and start the .exe file, please download a JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=19&os=any&arch=x64) as this is needed to use it. 
+Even though this is prompted when you download and start the .exe file, please download a JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=19&os=any&arch=x64) as this is needed to use it.
