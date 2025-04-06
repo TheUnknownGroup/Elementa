@@ -4,4 +4,4 @@
 
 If this gains support, I might make more versions, if I get a working version out to the people in the first place, but that is unclear if it will happen.
 
-**Disclaimer: The Unknown Group and its projects are not affialiated, associated, nor approved by Mojang or Microsoft. Nor are we an official Minecraft Service.**
+**Disclaimer: The Unknown Group and its projects are not affialiated, associated, approved by Mojang or Microsoft, nor are we an official Minecraft Service.**
